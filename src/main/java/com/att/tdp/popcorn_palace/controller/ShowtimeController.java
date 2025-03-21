@@ -35,4 +35,11 @@ public class ShowtimeController {
         return ResponseEntity.ok(showtimeService.addShowtime(showtimeDto));
     }
 
+    // Update a showtime
+    @PutMapping("/update/{showtimeId}")
+    public ResponseEntity<Showtime> updateShowtime(@PathVariable("showtimeId") Long showtimeId, @RequestBody ShowtimeDto showtimeDto) {
+        showtimeService.updateShowtime(showtimeId, showtimeDto);
+        return ResponseEntity.ok(null);
+    }
+
 }

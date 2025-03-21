@@ -49,5 +49,26 @@ public class ShowtimeService {
     
         return showtimeRepository.save(showtime);
     }
+
+    // Update a showtime
+    public void updateShowtime(Long showtimeId, ShowtimeDto showtimeDto) {
+        Showtime showtime = showtimeRepository.findById(showtimeId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Showtime not found"));
+
+        boolean movieExists = movieRepository.existsById(showtimeDto.getMovieId());
+            if (!movieExists) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
+            }
+            else {
+                showtime.setMovieId(showtimeDto.getMovieId());
+            }
+            
+        showtime.setPrice(showtimeDto.getPrice());
+        showtime.setTheater(showtimeDto.getTheater());
+        showtime.setStartTime(showtimeDto.getStartTime());
+        showtime.setEndTime(showtimeDto.getEndTime());
+    
+        showtimeRepository.save(showtime);
+    }
     
 }
