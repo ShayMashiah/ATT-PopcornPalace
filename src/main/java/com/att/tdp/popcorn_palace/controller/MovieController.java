@@ -25,8 +25,8 @@ public class MovieController {
     }
     
     @PostMapping("/")
-    public ResponseEntity<Movie> addMovie(@RequestBody Movie movie) {
-        return ResponseEntity.ok(movieService.addMovie(movie));
+    public ResponseEntity<Movie> addMovie(@RequestBody MoviesDto movieDto) {
+        return ResponseEntity.ok(movieService.addMovie(movieDto));
     }
 
     @PutMapping("update/{movieTitle}")
