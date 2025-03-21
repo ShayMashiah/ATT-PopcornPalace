@@ -1,0 +1,53 @@
+package com.att.tdp.popcorn_palace.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.att.tdp.popcorn_palace.DTO.ShowtimeDto;
+import com.att.tdp.popcorn_palace.entity.Showtime;
+import com.att.tdp.popcorn_palace.repository.MovieRepository;
+import com.att.tdp.popcorn_palace.repository.ShowtimeRepository;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@Slf4j
+public class ShowtimeService {
+    @Autowired
+    private ShowtimeRepository showtimeRepository;
+    @Autowired
+    private MovieRepository movieRepository;
+
+    // Get all showtimes
+    public List<Showtime> getAllShowtimes() {
+        return showtimeRepository.findAll();
+    }
+
+    // Get a showtime by ID
+    public Showtime getShowtime(Long showtimeId) {
+        return showtimeRepository.findById(showtimeId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Showtime not found"));
+    }
+    
+    // Add a showtime only if the movie exists
+    public Showtime addShowtime(ShowtimeDto showtimeDto) {
+        boolean movieExists = movieRepository.existsById(showtimeDto.getMovieId());
+        if (!movieExists) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
+        }
+    
+        Showtime showtime = new Showtime();
+        showtime.setMovieId(showtimeDto.getMovieId());
+        showtime.setPrice(showtimeDto.getPrice());
+        showtime.setTheater(showtimeDto.getTheater());
+        showtime.setStartTime(showtimeDto.getStartTime());
+        showtime.setEndTime(showtimeDto.getEndTime());
+    
+        return showtimeRepository.save(showtime);
+    }
+    
+}
