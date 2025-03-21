@@ -31,5 +31,32 @@ public class MovieService {
             return movieRepository.save(movie);
         }
 
+        // Update a movie
+        public void updateMovie(String movieTitle, MoviesDto movieDto) {
+            Movie movie = movieRepository.findByTitle(movieTitle);
+    
+            if(movie == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
+            }
+    
+            if(movieDto.getTitle() != null) {
+                movie.setTitle(movieDto.getTitle());
+            }
+            if(movieDto.getGenre() != null) {
+                movie.setGenre(movieDto.getGenre());
+            }
+            if(movieDto.getDuration() != null) {
+                movie.setDuration(movieDto.getDuration());
+            }
+            if(movieDto.getRating() != null) {
+                movie.setRating(movieDto.getRating());
+            }
+            if(movieDto.getReleaseYear() != null) {
+                movie.setReleaseYear(movieDto.getReleaseYear());
+            }
+            movieRepository.save(movie);
+        };
+    
+
 }
 
