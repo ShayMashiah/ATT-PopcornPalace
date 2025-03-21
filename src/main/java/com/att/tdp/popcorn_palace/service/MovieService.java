@@ -27,7 +27,15 @@ public class MovieService {
         }
 
         // Add a movie
-        public Movie addMovie(Movie movie) {
+        public Movie addMovie(MoviesDto movieDto) {
+            Movie movie = new Movie();
+
+            movie.setTitle(movieDto.getTitle());
+            movie.setGenre(movieDto.getGenre());
+            movie.setDuration(movieDto.getDuration());
+            movie.setRating(movieDto.getRating());
+            movie.setReleaseYear(movieDto.getReleaseYear());
+            
             return movieRepository.save(movie);
         }
 
