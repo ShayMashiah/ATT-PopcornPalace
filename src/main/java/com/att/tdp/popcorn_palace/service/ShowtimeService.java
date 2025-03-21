@@ -62,13 +62,23 @@ public class ShowtimeService {
             else {
                 showtime.setMovieId(showtimeDto.getMovieId());
             }
-            
+
         showtime.setPrice(showtimeDto.getPrice());
         showtime.setTheater(showtimeDto.getTheater());
         showtime.setStartTime(showtimeDto.getStartTime());
         showtime.setEndTime(showtimeDto.getEndTime());
     
         showtimeRepository.save(showtime);
+    }
+
+    // Delete a showtime
+    public void deleteShowtime(Long showtimeId) {
+        showtimeRepository.deleteById(showtimeId);
+    }
+
+    // Delete all showtimes
+    public void deleteAllShowtimes() {
+        showtimeRepository.deleteAll();
     }
     
 }
