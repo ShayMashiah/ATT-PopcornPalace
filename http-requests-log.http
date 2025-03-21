@@ -48,11 +48,11 @@ POST http://localhost:8080/showtimes/
 Content-Type: application/json
 
 {
-  "movieId": 302,
+  "movieId": 402,
   "price":20.5,
-  "theater": "Big Theater",
-  "startTime": "2025-02-15T11:47:46.125405Z",
-  "endTime": "2025-02-15T14:47:46.125405Z" 
+  "theater": "Small Theater",
+  "startTime": "2025-02-18T11:47:46.125405Z",
+  "endTime": "2025-02-18T14:47:46.125405Z" 
 }
 
 ###
