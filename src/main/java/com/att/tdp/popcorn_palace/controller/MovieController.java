@@ -1,6 +1,7 @@
 package com.att.tdp.popcorn_palace.controller;
 
 
+import com.att.tdp.popcorn_palace.DTO.MoviesDto;
 import com.att.tdp.popcorn_palace.entity.Movie;
 import com.att.tdp.popcorn_palace.service.MovieService;
 
@@ -26,6 +27,12 @@ public class MovieController {
     @PostMapping("/")
     public ResponseEntity<Movie> addMovie(@RequestBody Movie movie) {
         return ResponseEntity.ok(movieService.addMovie(movie));
+    }
+
+    @PutMapping("update/{movieTitle}")
+    public ResponseEntity<Movie> updateMovie(@PathVariable("movieTitle") String movieTitle, @RequestBody MoviesDto movieDto) {
+        movieService.updateMovie(movieTitle, movieDto);
+        return ResponseEntity.ok(null);
     }
 
 } 

@@ -14,3 +14,16 @@ Content-Type: application/json
   "rating": 9.2,
   "releaseYear": 1972
 }
+
+###
+
+PUT http://localhost:8080/movies/update/bbb
+Content-Type: application/json
+
+{
+  "title": "AAAAAAAA",
+  "genre": "Crime",
+  "duration": 175,
+  "rating": 9.2,
+  "releaseYear": 1972
+}
