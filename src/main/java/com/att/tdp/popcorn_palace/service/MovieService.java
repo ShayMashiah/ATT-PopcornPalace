@@ -56,6 +56,20 @@ public class MovieService {
             }
             movieRepository.save(movie);
         };
+
+        // Delete a movie
+        public void deleteMovie(String movieTitle) {
+            Movie movie = movieRepository.findByTitle(movieTitle);
+            if(movie == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
+            }
+            movieRepository.delete(movie);
+        };
+
+        // Delete all movies
+        public void deleteAllMovies() {
+            movieRepository.deleteAll();
+        }
     
 
 }
