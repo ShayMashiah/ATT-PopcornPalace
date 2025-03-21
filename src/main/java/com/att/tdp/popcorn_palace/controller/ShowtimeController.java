@@ -42,4 +42,18 @@ public class ShowtimeController {
         return ResponseEntity.ok(null);
     }
 
+    // Delete a showtime
+    @DeleteMapping("/{showtimeId}")
+    public ResponseEntity<Showtime> deleteShowtime(@PathVariable("showtimeId") Long showtimeId) {
+        showtimeService.deleteShowtime(showtimeId);
+        return ResponseEntity.ok(null);
+    }
+
+    // Delete all showtimes
+    @DeleteMapping("/")
+    public ResponseEntity<Showtime> deleteAllShowtimes() {
+        showtimeService.deleteAllShowtimes();
+        return ResponseEntity.ok(null);
+    }
+
 }

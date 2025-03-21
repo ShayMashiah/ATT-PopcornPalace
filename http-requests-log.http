@@ -8,28 +8,28 @@ POST http://localhost:8080/movies/
 Content-Type: application/json
 
 {
-  "title": "bbb",
-  "genre": "Crime",
-  "duration": 175,
-  "rating": 9.2,
-  "releaseYear": 1972
+  "title": "Titanic",
+  "genre": "Romance",
+  "duration": 195,
+  "rating": 8.8,
+  "releaseYear":1997
 }
 
 ###
 
-PUT http://localhost:8080/movies/update/bbb
+PUT http://localhost:8080/movies/update/Titanic
 Content-Type: application/json
 
 {
-  "title": "AAAAAAAA",
-  "genre": "Crime",
-  "duration": 175,
-  "rating": 9.2,
-  "releaseYear": 1972
+  "title": "Titanic",
+  "genre": "Romance",
+  "duration": 210,
+  "rating": 9.0,
+  "releaseYear": 1997
 }
 
 ###
-DELETE http://localhost:8080/movies/AAAAAAAA
+DELETE http://localhost:8080/movies/Titanic
 
 ###
 DELETE http://localhost:8080/movies/
@@ -40,7 +40,7 @@ DELETE http://localhost:8080/movies/
 GET http://localhost:8080/showtimes/all
 ###
 
-GET http://localhost:8080/showtimes/2
+GET http://localhost:8080/showtimes/102
 
 ###
 
@@ -48,22 +48,30 @@ POST http://localhost:8080/showtimes/
 Content-Type: application/json
 
 {
-  "movieId": 210,
+  "movieId": 302,
   "price":20.5,
-  "theater": "Sample Theater",
+  "theater": "Big Theater",
+  "startTime": "2025-02-15T11:47:46.125405Z",
+  "endTime": "2025-02-15T14:47:46.125405Z" 
+}
+
+###
+
+PUT http://localhost:8080/showtimes/update/102
+Content-Type: application/json
+
+{
+  "movieId": 302,
+  "price":50.5,
+  "theater": "Small Theater",
   "startTime": "2025-02-14T11:47:46.125405Z",
   "endTime": "2025-02-14T14:47:46.125405Z" 
 }
 
 ###
 
-PUT http://localhost:8080/showtimes/update/2
-Content-Type: application/json
+DELETE http://localhost:8080/showtimes/102
 
-{
-  "movieId": 203,
-  "price":20.5,
-  "theater": "Sample Theater",
-  "startTime": "2025-02-14T11:47:46.125405Z",
-  "endTime": "2025-02-14T14:47:46.125405Z" 
-}
+###
+
+DELETE http://localhost:8080/showtimes/
