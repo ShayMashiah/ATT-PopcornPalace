@@ -27,3 +27,9 @@ Content-Type: application/json
   "rating": 9.2,
   "releaseYear": 1972
 }
+
+###
+DELETE http://localhost:8080/movies/AAAAAAAA
+
+###
+DELETE http://localhost:8080/movies/

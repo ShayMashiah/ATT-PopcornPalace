@@ -35,4 +35,16 @@ public class MovieController {
         return ResponseEntity.ok(null);
     }
 
+    @DeleteMapping("/{movieTitle}")
+    public ResponseEntity<Movie> deleteMovie(@PathVariable("movieTitle") String movieTitle) {
+        movieService.deleteMovie(movieTitle);
+        return ResponseEntity.ok(null);
+    }
+
+    @DeleteMapping("/")
+    public ResponseEntity<Movie> deleteAllMovies() {
+        movieService.deleteAllMovies();
+        return ResponseEntity.ok(null);
+    }
+
 } 
