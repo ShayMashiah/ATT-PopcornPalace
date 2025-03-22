@@ -10,4 +10,5 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     void deleteAllByShowtimeId(Long showtimeId);
     List<Booking> findAllByShowtimeId(Long showtimeId);
     Booking findBySeatNumber(Integer seatNumber);
+    
 }
