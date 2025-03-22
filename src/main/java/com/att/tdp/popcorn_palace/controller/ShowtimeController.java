@@ -8,6 +8,7 @@ import com.att.tdp.popcorn_palace.DTO.ShowtimeDto;
 import com.att.tdp.popcorn_palace.entity.Showtime;
 import com.att.tdp.popcorn_palace.service.ShowtimeService;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController 
@@ -31,13 +32,13 @@ public class ShowtimeController {
 
     // Add a showtime
     @PostMapping("/")
-    public ResponseEntity<Showtime> addShowtime(@RequestBody ShowtimeDto showtimeDto) {
+    public ResponseEntity<Showtime> addShowtime(@RequestBody @Valid ShowtimeDto showtimeDto) {
         return ResponseEntity.ok(showtimeService.addShowtime(showtimeDto));
     }
 
     // Update a showtime
     @PutMapping("/update/{showtimeId}")
-    public ResponseEntity<Showtime> updateShowtime(@PathVariable("showtimeId") Long showtimeId, @RequestBody ShowtimeDto showtimeDto) {
+    public ResponseEntity<Showtime> updateShowtime(@PathVariable("showtimeId") Long showtimeId, @RequestBody @Valid ShowtimeDto showtimeDto) {
         showtimeService.updateShowtime(showtimeId, showtimeDto);
         return ResponseEntity.ok(null);
     }
