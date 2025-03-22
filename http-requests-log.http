@@ -8,11 +8,11 @@ POST http://localhost:8080/movies/
 Content-Type: application/json
 
 {
-  "title": "Avatar",
-  "genre": "Action",
-  "duration": 195,
-  "rating": 8.8,
-  "releaseYear":2009
+  "title": "",
+  "genre": "",
+  "duration": 350,
+  "rating": 10.1,
+  "releaseYear":2025
 }
 
 ###
