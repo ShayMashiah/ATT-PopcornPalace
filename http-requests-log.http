@@ -8,11 +8,11 @@ POST http://localhost:8080/movies/
 Content-Type: application/json
 
 {
-  "title": "Titanic",
-  "genre": "Romance",
+  "title": "Avatar",
+  "genre": "Action",
   "duration": 195,
   "rating": 8.8,
-  "releaseYear":1997
+  "releaseYear":2009
 }
 
 ###
@@ -23,7 +23,7 @@ Content-Type: application/json
 {
   "title": "Titanic",
   "genre": "Romance",
-  "duration": 210,
+  "duration": 220,
   "rating": 9.0,
   "releaseYear": 1997
 }
@@ -40,7 +40,7 @@ DELETE http://localhost:8080/movies/
 GET http://localhost:8080/showtimes/all
 ###
 
-GET http://localhost:8080/showtimes/102
+GET http://localhost:8080/showtimes/403
 
 ###
 
@@ -48,20 +48,20 @@ POST http://localhost:8080/showtimes/
 Content-Type: application/json
 
 {
-  "movieId": 402,
+  "movieId": 602,
   "price":20.5,
-  "theater": "Small Theater",
-  "startTime": "2025-02-18T11:47:46.125405Z",
-  "endTime": "2025-02-18T14:47:46.125405Z" 
+  "theater": "small Theater",
+  "startTime": "2025-02-20T11:47:46.125405Z",
+  "endTime": "2025-02-20T14:47:46.125405Z" 
 }
 
 ###
 
-PUT http://localhost:8080/showtimes/update/102
+PUT http://localhost:8080/showtimes/update/403
 Content-Type: application/json
 
 {
-  "movieId": 302,
+  "movieId": 552,
   "price":50.5,
   "theater": "Small Theater",
   "startTime": "2025-02-14T11:47:46.125405Z",
@@ -70,8 +70,22 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:8080/showtimes/102
+DELETE http://localhost:8080/showtimes/403
 
 ###
 
 DELETE http://localhost:8080/showtimes/
+
+###
+
+POST http://localhost:8080/bookings/
+Content-Type: application/json
+
+{
+  "showtimeId": 452,
+  "seatNumber": 10,
+  "userId": "84438967-f68f-4fa0-b620-0f08217e76af"
+}
+
+###
+GET http://localhost:8080/bookings/

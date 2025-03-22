@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.att.tdp.popcorn_palace.repository.BookingRepository;
 import com.att.tdp.popcorn_palace.repository.MovieRepository;
 import com.att.tdp.popcorn_palace.repository.ShowtimeRepository;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 import com.att.tdp.popcorn_palace.DTO.MoviesDto;
 import com.att.tdp.popcorn_palace.entity.Movie;
+import com.att.tdp.popcorn_palace.entity.Showtime;
 
 @Service
 @Slf4j
@@ -25,6 +27,8 @@ public class MovieService {
     private MovieRepository movieRepository;
     @Autowired
     private ShowtimeRepository showtimeRepository;
+    @Autowired
+    private BookingRepository bookingRepository;
 
         // Get all movies
         public List<Movie> getAllMovies() {
@@ -77,15 +81,25 @@ public class MovieService {
         // Delete a movie
         public void deleteMovie(String movieTitle) {
             Movie movie = movieRepository.findByTitle(movieTitle);
+
             if(movie == null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
             }
-            showtimeRepository.deleteAllByMovieId(movie.getId());
+
+            List<Showtime> showtimes = showtimeRepository.findAllByMovieId(movie.getId());
+            if (!showtimes.isEmpty()) {
+                for (Showtime showtime : showtimes) {
+                    bookingRepository.deleteAllByShowtimeId(showtime.getId());
+                }
+                showtimeRepository.deleteAllByMovieId(movie.getId());
+            }
             movieRepository.delete(movie);
         };
 
+
         // Delete all movies
         public void deleteAllMovies() {
+            bookingRepository.deleteAll();
             showtimeRepository.deleteAll();
             movieRepository.deleteAll();
         }

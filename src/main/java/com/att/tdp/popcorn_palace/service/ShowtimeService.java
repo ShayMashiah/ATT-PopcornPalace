@@ -8,19 +8,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.att.tdp.popcorn_palace.DTO.ShowtimeDto;
+import com.att.tdp.popcorn_palace.entity.Booking;
 import com.att.tdp.popcorn_palace.entity.Showtime;
+import com.att.tdp.popcorn_palace.repository.BookingRepository;
 import com.att.tdp.popcorn_palace.repository.MovieRepository;
 import com.att.tdp.popcorn_palace.repository.ShowtimeRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@Transactional
 public class ShowtimeService {
     @Autowired
     private ShowtimeRepository showtimeRepository;
     @Autowired
     private MovieRepository movieRepository;
+    @Autowired
+    private BookingRepository bookingRepository;
 
     // Get all showtimes
     public List<Showtime> getAllShowtimes() {
@@ -73,11 +79,16 @@ public class ShowtimeService {
 
     // Delete a showtime
     public void deleteShowtime(Long showtimeId) {
+        List<Booking> bookings = bookingRepository.findAllByShowtimeId(showtimeId);  
+        if (!bookings.isEmpty()) {
+            bookingRepository.deleteAllByShowtimeId(showtimeId); 
+        }
         showtimeRepository.deleteById(showtimeId);
     }
 
     // Delete all showtimes
     public void deleteAllShowtimes() {
+        bookingRepository.deleteAll();
         showtimeRepository.deleteAll();
     }
     
