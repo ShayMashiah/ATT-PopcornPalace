@@ -1,14 +1,18 @@
 package com.att.tdp.popcorn_palace.DTO;
 
-import jakarta.persistence.criteria.CriteriaBuilder.In;
-
 public class BookingDto {
+    public Long showtimeId;
     public Integer seatNumber;
-    public Long userId;
+    public String userId;
 
-    public BookingDto(Integer seatNumber, Long userId) {
+    public BookingDto(Long showtimeId, Integer seatNumber, String userId) {
+        this.showtimeId = showtimeId;
         this.seatNumber = seatNumber;
         this.userId = userId;
+    }
+
+    public Long getShowtimeId() {
+        return showtimeId;
     }
 
     public Integer getSeatNumber() {
@@ -19,11 +23,11 @@ public class BookingDto {
         this.seatNumber = seatNumber;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
     
