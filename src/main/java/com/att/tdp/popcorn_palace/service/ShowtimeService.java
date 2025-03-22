@@ -39,13 +39,23 @@ public class ShowtimeService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Showtime not found"));
     }
     
-    // Add a showtime only if the movie exists
+    // Add a showtime only if the movie exists and there is no other showtime in the same theater during the same time
     public Showtime addShowtime(ShowtimeDto showtimeDto) {
         boolean movieExists = movieRepository.existsById(showtimeDto.getMovieId());
         if (!movieExists) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
         }
-    
+       
+        boolean showtimeExists = showtimeRepository.existsByTheaterAndStartTimeLessThanEqualAndEndTimeGreaterThanEqual(
+            showtimeDto.getTheater(),
+            showtimeDto.getEndTime(), 
+            showtimeDto.getStartTime()
+        );
+        
+        if (showtimeExists) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A showtime already exists in this theater during this time");
+        }
+        
         Showtime showtime = new Showtime();
         showtime.setMovieId(showtimeDto.getMovieId());
         showtime.setPrice(showtimeDto.getPrice());
@@ -60,7 +70,8 @@ public class ShowtimeService {
     public void updateShowtime(Long showtimeId, ShowtimeDto showtimeDto) {
         Showtime showtime = showtimeRepository.findById(showtimeId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Showtime not found"));
-
+        
+        // Check if the movie exists
         boolean movieExists = movieRepository.existsById(showtimeDto.getMovieId());
             if (!movieExists) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
@@ -68,7 +79,17 @@ public class ShowtimeService {
             else {
                 showtime.setMovieId(showtimeDto.getMovieId());
             }
-
+        // Check if there is another showtime in the same theater during the same time 
+        boolean showtimeExists = showtimeRepository.existsByTheaterAndStartTimeLessThanEqualAndEndTimeGreaterThanEqualAndShowtimeIdNot(
+            showtimeDto.getTheater(),
+            showtimeDto.getEndTime(),
+            showtimeDto.getStartTime(),
+            showtimeId
+        );    
+        if (showtimeExists) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A showtime already exists in this theater during this time");
+        }
+            
         showtime.setPrice(showtimeDto.getPrice());
         showtime.setTheater(showtimeDto.getTheater());
         showtime.setStartTime(showtimeDto.getStartTime());
