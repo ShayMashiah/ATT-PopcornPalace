@@ -12,6 +12,7 @@ import com.att.tdp.popcorn_palace.DTO.BookingDto;
 import com.att.tdp.popcorn_palace.entity.Booking;
 import com.att.tdp.popcorn_palace.service.BookingService;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController 
@@ -23,7 +24,7 @@ public class BookingController {
 
     // Add a new booking
     @PostMapping("/")
-    public ResponseEntity<Booking> addBooking(@RequestBody BookingDto bookingDto) {
+    public ResponseEntity<Booking> addBooking(@RequestBody @Valid BookingDto bookingDto) {
         return ResponseEntity.ok(bookingService.addBooking(bookingDto));
     }
 

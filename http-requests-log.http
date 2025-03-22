@@ -82,8 +82,8 @@ POST http://localhost:8080/bookings/
 Content-Type: application/json
 
 {
-  "showtimeId": 452,
-  "seatNumber": 10,
+  "showtimeId": 602,
+  "seatNumber": 9,
   "userId": "84438967-f68f-4fa0-b620-0f08217e76af"
 }
 
