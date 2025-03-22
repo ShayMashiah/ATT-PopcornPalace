@@ -5,6 +5,7 @@ import com.att.tdp.popcorn_palace.DTO.MoviesDto;
 import com.att.tdp.popcorn_palace.entity.Movie;
 import com.att.tdp.popcorn_palace.service.MovieService;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,12 @@ public class MovieController {
     }
     
     @PostMapping("/")
-    public ResponseEntity<Movie> addMovie(@RequestBody MoviesDto movieDto) {
+    public ResponseEntity<Movie> addMovie(@RequestBody @Valid MoviesDto movieDto) {
         return ResponseEntity.ok(movieService.addMovie(movieDto));
     }
 
     @PutMapping("update/{movieTitle}")
-    public ResponseEntity<Movie> updateMovie(@PathVariable("movieTitle") String movieTitle, @RequestBody MoviesDto movieDto) {
+    public ResponseEntity<Movie> updateMovie(@PathVariable("movieTitle") String movieTitle, @RequestBody @Valid MoviesDto movieDto) {
         movieService.updateMovie(movieTitle, movieDto);
         return ResponseEntity.ok(null);
     }
