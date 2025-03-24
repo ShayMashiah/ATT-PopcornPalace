@@ -53,29 +53,14 @@ public class MovieService {
         }
 
         // Update a movie
-        public void updateMovie(String movieTitle, MoviesDto movieDto) {
+        public Movie updateMovie(String movieTitle, MoviesDto movieDto) {
             Movie movie = movieRepository.findByTitle(movieTitle);
     
             if(movie == null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
             }
-    
-            if(movieDto.getTitle() != null) {
-                movie.setTitle(movieDto.getTitle());
-            }
-            if(movieDto.getGenre() != null) {
-                movie.setGenre(movieDto.getGenre());
-            }
-            if(movieDto.getDuration() != null) {
-                movie.setDuration(movieDto.getDuration());
-            }
-            if(movieDto.getRating() != null) {
-                movie.setRating(movieDto.getRating());
-            }
-            if(movieDto.getReleaseYear() != null) {
-                movie.setReleaseYear(movieDto.getReleaseYear());
-            }
-            movieRepository.save(movie);
+            // No need to check if all fields are null, as we added an anootation @NotNull in the DTO
+            return movieRepository.save(movie);
         };
 
         // Delete a movie
@@ -89,9 +74,10 @@ public class MovieService {
             List<Showtime> showtimes = showtimeRepository.findAllByMovieId(movie.getId());
             if (!showtimes.isEmpty()) {
                 for (Showtime showtime : showtimes) {
-                    bookingRepository.deleteAllByShowtimeId(showtime.getId());
+                    bookingRepository.deleteAllByShowtimeId(showtime.getShowtimeId());
+                    showtimeRepository.delete(showtime);
                 }
-                showtimeRepository.deleteAllByMovieId(movie.getId());
+                
             }
             movieRepository.delete(movie);
         };
