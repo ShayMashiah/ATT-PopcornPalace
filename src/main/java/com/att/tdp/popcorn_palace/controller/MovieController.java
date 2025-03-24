@@ -27,13 +27,14 @@ public class MovieController {
     
     @PostMapping("/")
     public ResponseEntity<Movie> addMovie(@RequestBody @Valid MoviesDto movieDto) {
-        return ResponseEntity.ok(movieService.addMovie(movieDto));
+        Movie savedMovie = movieService.addMovie(movieDto);
+        return ResponseEntity.ok().body(savedMovie);
     }
 
     @PutMapping("update/{movieTitle}")
     public ResponseEntity<Movie> updateMovie(@PathVariable("movieTitle") String movieTitle, @RequestBody @Valid MoviesDto movieDto) {
-        movieService.updateMovie(movieTitle, movieDto);
-        return ResponseEntity.ok(null);
+        Movie updatedMovie = movieService.updateMovie(movieTitle, movieDto);
+            return ResponseEntity.ok().body(updatedMovie);
     }
 
     @DeleteMapping("/{movieTitle}")
