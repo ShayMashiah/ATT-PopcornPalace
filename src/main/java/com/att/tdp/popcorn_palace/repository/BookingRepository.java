@@ -9,6 +9,5 @@ import com.att.tdp.popcorn_palace.entity.Booking;
 public interface BookingRepository extends JpaRepository<Booking, Long> {
     void deleteAllByShowtimeId(Long showtimeId);
     List<Booking> findAllByShowtimeId(Long showtimeId);
-    Booking findBySeatNumber(Integer seatNumber);
-    
+    Booking findBySeatNumberAndShowtimeId(Integer seatNumber, Long showtimeId);
 }

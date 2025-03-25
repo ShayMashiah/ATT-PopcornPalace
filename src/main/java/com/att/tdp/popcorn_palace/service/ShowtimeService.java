@@ -67,7 +67,7 @@ public class ShowtimeService {
     }
 
     // Update a showtime
-    public void updateShowtime(Long showtimeId, ShowtimeDto showtimeDto) {
+    public Showtime updateShowtime(Long showtimeId, ShowtimeDto showtimeDto) {
         Showtime showtime = showtimeRepository.findById(showtimeId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Showtime not found"));
         
@@ -85,7 +85,7 @@ public class ShowtimeService {
             showtimeDto.getEndTime(),
             showtimeDto.getStartTime(),
             showtimeId
-        );    
+        );   
         if (showtimeExists) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A showtime already exists in this theater during this time");
         }
@@ -95,7 +95,7 @@ public class ShowtimeService {
         showtime.setStartTime(showtimeDto.getStartTime());
         showtime.setEndTime(showtimeDto.getEndTime());
     
-        showtimeRepository.save(showtime);
+        return showtimeRepository.save(showtime);
     }
 
     // Delete a showtime

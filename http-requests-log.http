@@ -8,7 +8,7 @@ POST http://localhost:8080/movies/
 Content-Type: application/json
 
 {
-  "title": "Avatar",
+  "title": "Avatar3",
   "genre": "Action",
   "duration": 180,
   "rating": 9.0,
@@ -48,24 +48,24 @@ POST http://localhost:8080/showtimes/
 Content-Type: application/json
 
 {
-  "movieId": "952",
+  "movieId": "1102",
   "price":20.5,
-  "theater": "4",
+  "theater": "6",
   "startTime": "15:00",
   "endTime": "16:00" 
 }
 
 ###
 
-PUT http://localhost:8080/showtimes/update/603
+PUT http://localhost:8080/showtimes/update/852
 Content-Type: application/json
 
 {
-  "movieId": "",
-  "price": -50.5,
-  "theater": "",
-  "startTime": "",
-  "endTime": "" 
+  "movieId": "1102",
+  "price": 50.5,
+  "theater": "6",
+  "startTime": "15:00",
+  "endTime": "16:00" 
 }
 
 ###
@@ -82,9 +82,9 @@ POST http://localhost:8080/bookings/
 Content-Type: application/json
 
 {
-  "showtimeId": 753,
-  "seatNumber": 17,
-  "userId": "84438967-f68f-4fa0-b620-0f08217e76af"
+  "showtimeId": 802,
+  "seatNumber": 19,
+  "userId": "84438967-f68f-4fa0-b620-fd8217e76af"
 }
 
 ###

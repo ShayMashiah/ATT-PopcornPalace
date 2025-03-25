@@ -34,7 +34,7 @@ public class UpdateMovieApiTest {
 
     // Test the update movie API
     @Test
-    void testUpdateMovie() throws Exception {
+    void updateMovieTest() throws Exception {
         String movieTitle = "Inception";
     
         Movie updatedMovie = new Movie();
@@ -47,7 +47,7 @@ public class UpdateMovieApiTest {
     
         MoviesDto updatedMovieDto = new MoviesDto("Inception", "Sci-Fi", 150, 9.0, 2010);
         
-        when(movieService.updateMovie(eq(movieTitle), ArgumentMatchers.any(MoviesDto.class))).thenReturn(updatedMovie);
+        when(movieService.updateMovie(eq(movieTitle))).thenReturn(updatedMovie);
     
         mockMvc.perform(put(UPDATE_MOVIE_PATH, movieTitle)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -59,16 +59,16 @@ public class UpdateMovieApiTest {
                 .andExpect(jsonPath("$.rating").value(9.0))
                 .andExpect(jsonPath("$.releaseYear").value(2010));
     
-        verify(movieService, times(1)).updateMovie(eq(movieTitle), ArgumentMatchers.any(MoviesDto.class));
+        verify(movieService, times(1)).updateMovie(eq(movieTitle));
     }
 
     // Test the update movie API with not existing movie
     @Test
-    void testUpdateMovie_NotFound() throws Exception {
+    void updateMovieTest_NotFound() throws Exception {
         String movieTitle = "NonExistentMovie";
         MoviesDto updatedMovieDto = new MoviesDto("NonExistentMovie", "Drama", 120, 7.5, 2015);
     
-        when(movieService.updateMovie(eq(movieTitle), ArgumentMatchers.any(MoviesDto.class)))
+        when(movieService.updateMovie(eq(movieTitle)))
             .thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found"));
     
         mockMvc.perform(put(UPDATE_MOVIE_PATH, movieTitle)
@@ -79,7 +79,7 @@ public class UpdateMovieApiTest {
 
     // Test the update movie API with invalid data
     @Test
-    void testUpdateMovie_WithInvalidParameters() throws Exception {
+    void updateMovieTest_WithInvalidParameters() throws Exception {
         String movieTitle = "Inception";
         MoviesDto invalidMovieDto = new MoviesDto("", "", 400, 11.5, 3000);
     
@@ -97,7 +97,7 @@ public class UpdateMovieApiTest {
     
     // Test the update movie API with invalid path
     @Test
-    void testUpdateMovie_WithInvalidPath() throws Exception {
+    void updateMovieTest_WithInvalidPath() throws Exception {
         MoviesDto validMovieDto = new MoviesDto("Inception", "Sci-Fi", 140, 9.0, 2010);
     
         String invalidPath = "/update/Inceptio";

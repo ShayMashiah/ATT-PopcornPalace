@@ -33,7 +33,7 @@ public class MovieController {
 
     @PutMapping("update/{movieTitle}")
     public ResponseEntity<Movie> updateMovie(@PathVariable("movieTitle") String movieTitle, @RequestBody @Valid MoviesDto movieDto) {
-        Movie updatedMovie = movieService.updateMovie(movieTitle, movieDto);
+        Movie updatedMovie = movieService.updateMovie(movieTitle);
             return ResponseEntity.ok().body(updatedMovie);
     }
 

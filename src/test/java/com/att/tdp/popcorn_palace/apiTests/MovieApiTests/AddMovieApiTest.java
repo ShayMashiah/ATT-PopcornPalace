@@ -35,7 +35,7 @@ public class AddMovieApiTest {
 
     // Test the add movie API
     @Test
-    void testAddMovie() throws Exception {
+    void addMovieTest() throws Exception {
         MoviesDto movieDto = new MoviesDto("Inception", "Sci-Fi", 148, 8.8, 2010);
         Movie savedMovie = new Movie();
         savedMovie.setId(1L);
@@ -62,7 +62,7 @@ public class AddMovieApiTest {
 
     // Test try to add movie that already exist
     @Test
-    void testAddMovie_ExistingMovie() throws Exception {
+    void addMovieTest_ExistingMovie() throws Exception {
         MoviesDto existingMovieDto = new MoviesDto("Inception", "Sci-Fi", 150, 9.0, 2010);
     
         when(movieService.addMovie(ArgumentMatchers.any(MoviesDto.class)))
@@ -78,7 +78,7 @@ public class AddMovieApiTest {
 
     // Test the add movie API with bad request
     @Test
-    void testAddMovie_BadRequest() throws Exception {
+    void addMovieTest_BadRequest() throws Exception {
         MoviesDto invalidMovieDto = new MoviesDto("", "", 350, 15.0, 2030);
 
         mockMvc.perform(post(ADD_MOVIE_PATH)
@@ -95,7 +95,7 @@ public class AddMovieApiTest {
 
     // Test the add movie API with invalid path
     @Test
-    void testAddMovie_InvalidPath() throws Exception {
+    void addMovieTest_InvalidPath() throws Exception {
         MoviesDto validMovieDto = new MoviesDto("Interstellar", "Sci-Fi", 169, 8.6, 2014);
 
         mockMvc.perform(post("/invalid-path/")

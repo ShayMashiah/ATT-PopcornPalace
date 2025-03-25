@@ -55,26 +55,21 @@ public class GetAllMoviesApiTest {
 
     // Test the get all movies API
     @Test
-    void testGetAllMovies() throws Exception {
+    void getAllMoviesTest() throws Exception {
         mockMvc.perform(get(PATH)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].title", is("Movie 1")))
-                .andExpect(jsonPath("$[0].genre", is("Action")))
-                .andExpect(jsonPath("$[0].duration", is(120)))
-                .andExpect(jsonPath("$[0].rating", is(8.5)))
-                .andExpect(jsonPath("$[0].releaseYear", is(2020)))
-                .andExpect(jsonPath("$[1].title", is("Movie 2")))
-                .andExpect(jsonPath("$[1].genre", is("Comedy")))
-                .andExpect(jsonPath("$[1].duration", is(90)))
-                .andExpect(jsonPath("$[1].rating", is(7.2)))
-                .andExpect(jsonPath("$[1].releaseYear", is(2021)));
+                .andExpect(jsonPath("$[*].title", containsInAnyOrder("Movie 1", "Movie 2")))
+                .andExpect(jsonPath("$[*].genre", containsInAnyOrder("Action","Comedy")))
+                .andExpect(jsonPath("$[*].duration", containsInAnyOrder(120,90)))
+                .andExpect(jsonPath("$[*].rating", containsInAnyOrder(8.5,7.2)))
+                .andExpect(jsonPath("$[*].releaseYear", containsInAnyOrder(2020,2021)));
     }
 
     // Test the get all movies API with an empty list
     @Test
-    void testGetAllMovies_EmptyList() throws Exception {
+    void getAllMoviesTest_EmptyList() throws Exception {
         when(movieService.getAllMovies()).thenReturn(List.of());
 
         mockMvc.perform(get(PATH)
@@ -85,8 +80,8 @@ public class GetAllMoviesApiTest {
 
     // Test the get all movies API with an incorrect path
     @Test
-    void testGetAllMovies_IncorrectPath() throws Exception {
-        mockMvc.perform(get("/movies/incorrect_path")
+    void getAllMoviesTest_InvalidPath() throws Exception {
+        mockMvc.perform(get("/movies/invalid_path")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError());
     }

@@ -40,7 +40,7 @@ public class ShowtimeController {
     @PutMapping("/update/{showtimeId}")
     public ResponseEntity<Showtime> updateShowtime(@PathVariable("showtimeId") Long showtimeId, @RequestBody @Valid ShowtimeDto showtimeDto) {
         showtimeService.updateShowtime(showtimeId, showtimeDto);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(showtimeService.updateShowtime(showtimeId,showtimeDto));
     }
 
     // Delete a showtime

@@ -11,5 +11,4 @@ public class Booking {
     private Long showtimeId;
     private Integer seatNumber;
     private String userId;
-    
 }
