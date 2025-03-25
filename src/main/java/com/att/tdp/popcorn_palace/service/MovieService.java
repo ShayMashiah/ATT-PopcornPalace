@@ -53,7 +53,7 @@ public class MovieService {
         }
 
         // Update a movie
-        public Movie updateMovie(String movieTitle, MoviesDto movieDto) {
+        public Movie updateMovie(String movieTitle) {
             Movie movie = movieRepository.findByTitle(movieTitle);
     
             if(movie == null) {
@@ -61,7 +61,7 @@ public class MovieService {
             }
             // No need to check if all fields are null, as we added an anootation @NotNull in the DTO
             return movieRepository.save(movie);
-        };
+        }
 
         // Delete a movie
         public void deleteMovie(String movieTitle) {
@@ -80,7 +80,7 @@ public class MovieService {
                 
             }
             movieRepository.delete(movie);
-        };
+        }
 
 
         // Delete all movies

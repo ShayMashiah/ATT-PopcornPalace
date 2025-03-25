@@ -32,10 +32,11 @@ public class BookingService {
         Showtime showtime = showtimeRepository.findById(bookingDto.getShowtimeId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Showtime not found"));
 
-        // Check if the seat is already booked
-        if (bookingRepository.findBySeatNumber(bookingDto.getSeatNumber()) != null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Seat cannot be selected");
-        }
+        // Check if the seat is already booked for the same showtime
+        if (bookingRepository.findBySeatNumberAndShowtimeId(bookingDto.getSeatNumber(), bookingDto.getShowtimeId()) != null) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Seat cannot be selected for the same showtime");
+    }
+
 
         Booking booking = new Booking();
         booking.setShowtimeId(bookingDto.getShowtimeId());
