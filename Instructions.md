@@ -38,7 +38,7 @@ The project uses PostgreSQL, which runs in a Docker container. To set it up, fol
 4. Run the following command to start the PostgreSQL container:
 
 ```bash
-docker-compose up -d
+docker compose up
 ```
 
 This will pull the necessary PostgreSQL image and start the database in the background.
@@ -76,6 +76,10 @@ To run the tests in your project, follow these steps:
 ## 5. HTTP Requests Log File
 
 1. Install the "REST Client" extension in VS Code
+
 2. Navigate to http-requests-log.http
-2. Click "Send Request" above each HTTP method
-3. Responses will be shown in a separate panel - Useful for testing API endpoints without external tools like Postman
+
+3. Click "Send Request" above each HTTP method
+
+4. Responses will be shown in a separate panel 
+    - Useful for testing API endpoints without external tools like Postman
